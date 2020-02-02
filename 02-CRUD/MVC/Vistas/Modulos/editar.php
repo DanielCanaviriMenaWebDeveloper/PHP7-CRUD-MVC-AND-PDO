@@ -18,24 +18,20 @@
 
 	<form method="post">
 		
-		<input type="text" placeholder="Nombre" name="nombreE" required>
+		
 
-		<input type="text" placeholder="Apellido" name="apellidoE" required>
+		<?php 
 
-		<input type="email" placeholder="Email" name="emailE" required>
+			$editar = new EmpleadosC();
 
-		<input type="text" placeholder="Puesto" name="puestoE" required>
+			$editar -> EditarEmpleadosC();
 
-		<input type="text" placeholder="Salario" name="salarioE" required>
+			$actualizar = new EmpleadosC();
 
-		<input type="submit" value="Registrar">
+			$actualizar -> ActualizarEmpleadosC();
+
+	 	?>
 
 	</form>
 
-	<?php 
-
-		$editar = new EmpleadosC();
-
-		$editar -> EditarEmpleadosC();
-
-	 ?>
+	

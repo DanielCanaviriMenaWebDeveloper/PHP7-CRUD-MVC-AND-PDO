@@ -23,6 +23,7 @@
 				if ($respuesta == "Bien") {
 
 					header("location:index.php?ruta=empleados");
+
 				} else {
 
 					echo "Error al ingresar el registro";
@@ -52,7 +53,12 @@
 									<button>Editar</button>
 								</a>
 							</td>
-							<td><button>Borrar</button></td>
+
+							<td>
+								<a href="index.php?ruta=empleados&idB='.$value["id"].'">
+									<button>Borrar</button>
+								</a>
+							</td>
 						</tr>
 					 ';
 			}
@@ -63,12 +69,87 @@
 
 		public function EditarEmpleadosC() {
 
-			$datosC = $value["id"];
+			$datosC = $_GET["id"];
 
 			$tablaBD = "empleados";
 
-			$respuesta = EmpleadosM::EditarEmpleadosM($datosC, $tablaD);
+			$respuesta = EmpleadosM::EditarEmpleadosM($datosC, $tablaBD);
+
+			echo '
+
+				<input type="hidden"  value="'.$respuesta["id"].'" name="idE">
+
+				<input type="text" placeholder="Nombre" value="'.$respuesta["nombre"].'" name="nombreE" required>
+
+				<input type="text" placeholder="Apellido" value="'.$respuesta["apellido"].'" name="apellidoE" required>
+
+				<input type="email" placeholder="Email" value="'.$respuesta["email"].'" name="emailE" required>
+
+				<input type="text" placeholder="Puesto" value="'.$respuesta["puesto"].'" name="puestoE" required>
+
+				<input type="text" placeholder="Salario" value="'.$respuesta["salario"].'" name="salarioE" required>
+
+				<input type="submit" value="Actualizar">
+
+				';
 			
+		}
+
+		// Metodo para actualizar empleados
+
+		public function ActualizarEmpleadosC () {
+
+			if(isset($_POST["nombreE"])) {
+
+				$datosC = array (
+
+					"id" => $_POST["idE"],
+					"nombre" => $_POST["nombreE"],
+					"apellido" => $_POST["apellidoE"],
+					"email" => $_POST["emailE"],
+					"puesto" => $_POST["puestoE"],
+					"salario" => $_POST["salarioE"],
+
+				);
+
+				$tablaBD = "empleados";
+
+				$respuesta = EmpleadosM::ActualizarEmpleadosM($datosC, $tablaBD);
+
+				if ($respuesta == "Bien") {
+
+					header("location:index.php?ruta=empleados");
+
+				} else {
+
+					echo "Error al actualizar el registro";
+				}
+			}
+
+		}
+
+		// Metodo para eliminar empleados
+
+		public function BorrarEmpleadosC () {
+
+			if(isset($_GET["idB"])) {
+
+				$datosC = $_GET["idB"];
+
+				$tablaBD = "empleados";
+
+				$respuesta = EmpleadosM::BorrarEmpleadosM($datosC, $tablaBD); 
+
+				if ($respuesta == "Bien") {
+
+					header("location:index.php?ruta=empleados");
+
+				} else {
+
+					echo "Error al eliminar el registro";
+				}
+
+			}
 		}
 
 	}
